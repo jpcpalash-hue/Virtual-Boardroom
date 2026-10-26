@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#090e17" />
+  <title>Boardroom OS — The Decision Chamber</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<div class="shell">
+  <nav class="rail" aria-label="Main navigation">
+    <div class="mark">B<span>.</span></div>
+    <div class="rail-group">
+      <button class="rail-btn active" data-tip="Boardroom" aria-label="Boardroom" id="rail-board">▦</button>
+      <button class="rail-btn" data-tip="Recent meetings" aria-label="Recent meetings" id="rail-history">◷</button>
+      <button class="rail-btn" data-tip="New meeting" aria-label="New meeting" id="rail-new">＋</button>
+    </div>
+    <div class="rail-bottom"><div class="chair-badge" title="Chairperson">C</div></div>
+  </nav>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="brand"><span class="eyebrow">BOARDROOM <em>OS</em> &nbsp; / &nbsp; PRIVATE EXECUTIVE SUITE</span><h1>The Decision Chamber <span class="vtag">v0.1</span></h1></div>
+      <div class="top-actions"><span class="connection" id="connection"><i></i> Checking AI connection</span><button class="btn btn-outline" id="history-top">Past meetings</button><button class="btn btn-accent" id="new-meeting">＋ &nbsp;New meeting</button></div>
+    </header>
+    <section class="content-grid">
+      <main class="main-area">
+        <div class="section-heading"><div><span class="section-kicker">EXECUTIVE SESSION</span><h2 id="meeting-title">Your seat is ready, Chairperson.</h2></div><span class="session-tag" id="session-tag">● &nbsp;DEMO SESSION</span></div>
+        <div class="scene-card">
+          <div class="scene-topline"><div class="scene-metadata"><span class="live-dot"></span><span id="meeting-mode">IMMERSIVE BOARDROOM · FIRST-PERSON VIEW</span></div><span class="scene-number" id="round-number">SESSION 01 / BOARDROOM POV</span></div>
+          <div class="scene-frame">
+            <svg class="board-svg" id="board-svg" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" role="img" aria-label="First-person perspective from the chairperson's seat looking along a conference table at AI advisors">
+              <defs>
+                <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#182a3a"/><stop offset="1" stop-color="#10202b"/></linearGradient>
+                <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1e2930"/><stop offset="1" stop-color="#0a131e"/></linearGradient>
+                <linearGradient id="glass" x1="0" x2="0.7" y1="0" y2="1"><stop stop-color="#254d63"/><stop offset="1" stop-color="#101f2d"/></linearGradient>
+                <linearGradient id="tableWood" x1="0" x2="0.8" y1="0" y2="1"><stop stop-color="#584636"/><stop offset="0.5" stop-color="#2e2726"/><stop offset="1" stop-color="#111c26"/></linearGradient>
+                <linearGradient id="leather" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#283b43"/><stop offset="1" stop-color="#0d1b25"/></linearGradient>
+                <linearGradient id="screen" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#173d49"/><stop offset="1" stop-color="#0b1c2b"/></linearGradient>
+                <radialGradient id="lampGlow"><stop stop-color="#ebd7a9" stop-opacity="0.16"/><stop offset="1" stop-color="#e6d4aa" stop-opacity="0"/></radialGradient>
+                <filter id="softshadow"><feGaussianBlur stdDeviation="17"/></filter>
+                <filter id="activeglow"><feGaussianBlur stdDeviation="6"/></filter>
+              </defs>
+              <rect width="1200" height="760" fill="#0d1b27"/>
+              <rect width="1200" height="455" fill="url(#wall)"/>
+              <path d="M0 0 L85 0 210 455 0 570Z" fill="#11202b"/><path d="M1200 0 L1115 0 990 455 1200 570Z" fill="#11202b"/>
+              <path d="M0 455 H1200 V760 H0Z" fill="url(#floor)"/>
+              <path d="M0 740 L526 440 M1200 740 L674 440 M0 595 L525 440 M1200 595 L675 440" stroke="#47616d" opacity=".14" stroke-width="2"/>
+              <path d="M40 0 V470 M1160 0 V470 M0 451 H1200" stroke="#9b8b6e" opacity=".15" stroke-width="5"/>
+              <path d="M52 130 L337 130 L360 399 L32 399Z" fill="#0c1621" stroke="#596976" stroke-width="6"/>
+              <path d="M62 137 L332 137 L353 392 L39 392Z" fill="url(#glass)"/>
+              <path d="M863 130 L1148 130 L1168 399 L841 399Z" fill="#0c1621" stroke="#596976" stroke-width="6"/>
+              <path d="M869 137 L1139 137 L1161 392 L848 392Z" fill="url(#glass)"/>
+              <g fill="#101f2a" opacity=".95"><path d="M44 325 H93 V270 H126 V312 H160 V236 H188 V287 H221 V259 H269 V325 H345 V392 H44Z"/><path d="M854 332 H893 V278 H932 V308 H963 V239 H1006 V305 H1040 V270 H1094 V327 H1160 V392 H854Z"/></g>
+              <g opacity=".22" stroke="#bcd6df"><path d="M191 138 L191 392 M69 265 L350 265 M1001 138 V392 M866 267 H1151" stroke-width="4"/></g>
+              <path d="M400 70 H800 V340 H400Z" fill="#14242f" opacity=".6"/>
+              <rect x="426" y="97" width="348" height="211" rx="10" fill="#09151f" stroke="#557383" stroke-width="3"/>
+              <rect x="438" y="109" width="324" height="187" rx="5" fill="url(#screen)"/>
+              <text x="460" y="142" fill="#b7baa5" letter-spacing="3" font-size="14" font-weight="700">TODAY'S AGENDA</text>
+              <path d="M460 158 H737" stroke="#7d9c9a" opacity=".5"/>
+              <text x="460" y="196" fill="#e3e9e5" font-size="22" font-weight="700" id="svg-title">Strategic career decision</text>
+              <text x="460" y="226" fill="#9eb7b9" font-size="14" id="svg-subtitle">Expert perspectives · Debate · Decision</text>
+              <rect x="460" y="253" width="108" height="22" rx="11" fill="#25504d"/><text x="514" y="268" text-anchor="middle" fill="#a2ead2" font-size="10" font-weight="700" letter-spacing="1">CHAIR-LED</text>
+              <ellipse cx="600" cy="84" rx="318" ry="103" fill="url(#lampGlow)"/>
+              <path d="M427 0 L453 66 H747 L773 0" fill="#1b2226" stroke="#998463" stroke-width="3"/>
+              <path d="M455 66 H745 L710 78 H490Z" fill="#c6ad81" opacity=".65"/>
+              <g id="agent-layer"></g>
+              <!-- table surface intentionally hides part of each seated avatar -->
+              <path d="M526 379 L674 379 L1124 800 L77 800 Z" fill="#02090e" opacity=".65" transform="translate(0,25)" filter="url(#softshadow)"/>
+              <path d="M530 378 L670 378 L1130 790 L71 790Z" fill="url(#tableWood)" stroke="#b2976b" stroke-width="5"/>
+              <path d="M538 394 L661 394 L1079 755 L123 755Z" fill="none" stroke="#8c7050" opacity=".4" stroke-width="3"/>
+              <path d="M598 417 L609 417 L651 700 L552 700Z" fill="#121e27" stroke="#6d5948" stroke-width="2" opacity=".8"/>
+              <path d="M595 428 L610 428 L642 671 L560 671Z" fill="#0a131c"/>
+              <g opacity=".9" fill="#c9b48d"><ellipse cx="390" cy="520" rx="12" ry="4"/><ellipse cx="810" cy="520" rx="12" ry="4"/><ellipse cx="275" cy="631" rx="17" ry="6"/><ellipse cx="924" cy="631" rx="17" ry="6"/></g>
+              <g opacity=".85"><path d="M470 576 L508 580 L495 604 L458 599Z" fill="#0e1a23" stroke="#59747b" stroke-width="2"/><path d="M692 579 L731 574 L741 598 L703 603Z" fill="#0e1a23" stroke="#59747b" stroke-width="2"/></g>
+              <path d="M0 744 Q600 686 1200 744 V760 H0Z" fill="#10141d" opacity=".9"/>
+              <g id="name-layer"></g>
+            </svg>
+            <div class="scene-vignette"></div>
+            <div class="speech" id="speech"><div class="speech-top"><span class="speaker-dot" id="speaker-dot"></span><span id="speaker-label">CHIEF OF STAFF</span><span class="speaking-pill">● SPEAKING</span></div><p id="speech-text">Welcome, Chairperson. Your advisors are ready. Open a discussion or select any member to address them directly.</p></div>
+            <div class="view-label"><span>◉</span> CHAIRPERSON'S VIEW</div>
+            <div class="seat-helper">Click a board member to select them</div>
+          </div>
+          <div class="scene-controls"><div class="control-set"><button class="control-btn primary" id="opening-btn">▶ &nbsp;Open discussion</button><button class="control-btn" id="debate-btn">⇄ &nbsp;Debate round</button><button class="control-btn" id="summary-btn">≡ &nbsp;Board summary</button></div><div class="control-set"><button class="control-btn quiet" id="minutes-btn">↓ &nbsp;Minutes</button><button class="control-btn gold" id="decision-btn">◇ &nbsp;Record decision</button></div></div>
+        </div>
+        <div class="transcript-head"><div><span class="section-kicker">BOARD CONVERSATION</span><h3>Meeting transcript <span class="count" id="message-count">0</span></h3></div><span class="hint">Independent opinions • Constructive debate</span></div>
+        <div class="transcript" id="transcript" aria-live="polite"></div>
+        <form class="chair-compose" id="question-form"><span class="chair-symbol">C</span><input id="question-input" placeholder="Chairperson: Ask the selected advisor or challenge an argument…" autocomplete="off" aria-label="Question for selected AI advisor"/><button type="submit" id="send-question" title="Send question">➜</button></form>
+      </main>
+      <aside class="rightbar">
+        <div class="chair-panel"><div class="panel-title">YOUR OFFICE</div><div class="chairperson"><div class="chair-avatar">C</div><div><strong>The Chairperson</strong><small>Final decision authority</small></div><span class="status-light"></span></div><p>Lead the room. Challenge assumptions. Own the final call.</p></div>
+        <div class="right-section"><div class="panel-title">BOARD MEMBERS <span class="board-count">07</span></div><div class="member-list" id="member-list"></div></div>
+        <div class="right-section agenda-section"><div class="panel-title">MEETING BRIEF</div><div class="agenda-card"><div class="agenda-label">CURRENT AGENDA</div><strong id="agenda-title">Career growth vs financial security</strong><p id="agenda-context">The board will compare long-term opportunity, near-term reward, and downside risks.</p><div class="divider-line"></div><div class="agenda-meta"><span>Phase</span><strong id="phase-label">Opening brief</strong></div><div class="agenda-meta"><span>Decision status</span><strong id="decision-status">Awaiting chair</strong></div></div></div>
+        <div class="right-footer"><span class="tiny-green"></span> Human in control at every step</div>
+      </aside>
+    </section>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="meeting-dialog"><form method="dialog" class="modal-inner" id="meeting-form"><div class="modal-head"><span class="section-kicker">CONVENE THE BOARD</span><button type="button" class="xbtn" data-close="meeting-dialog" aria-label="Close">×</button></div><h2>Open a new meeting</h2><p>Give the board a decision to work through. Only relevant advisors will speak.</p><label>Meeting title<input name="title" maxlength="120" minlength="3" placeholder="e.g. Evaluate two job offers" required/></label><label>Decision question<textarea name="agenda" rows="3" maxlength="3000" minlength="5" placeholder="What exactly must be decided?" required></textarea></label><label>Known facts, constraints and preferences<textarea name="context" rows="4" maxlength="12000" placeholder="Share numbers, deadlines, priorities and missing information…"></textarea></label><p class="modal-hint">Live expert responses need an API key configured on your backend. Your key never goes in this form.</p><button class="btn btn-accent wide" type="submit" value="create">Create live meeting →</button></form></dialog>
+<dialog id="decision-dialog"><form method="dialog" class="modal-inner" id="decision-form"><div class="modal-head"><span class="section-kicker">FINAL AUTHORITY</span><button type="button" class="xbtn" data-close="decision-dialog" aria-label="Close">×</button></div><h2>Chairperson's resolution</h2><p>Only you can close the meeting. The board cannot decide on your behalf.</p><label>My final decision<textarea name="decision" rows="3" maxlength="4000" minlength="3" placeholder="I have decided to…" required></textarea></label><label>Rationale (optional)<textarea name="rationale" rows="3" maxlength="4000" placeholder="Why you chose this path…"></textarea></label><button class="btn btn-accent wide" type="submit" value="decide">Approve and close meeting →</button></form></dialog>
+<dialog id="history-dialog"><div class="modal-inner"><div class="modal-head"><span class="section-kicker">DECISION ARCHIVE</span><button type="button" class="xbtn" data-close="history-dialog" aria-label="Close">×</button></div><h2>Past board meetings</h2><p>Revisit your prior discussions and decisions.</p><div id="history-list" class="history-list"></div></div></dialog>
+<script src="/static/app.js" defer></script>
+</body></html>

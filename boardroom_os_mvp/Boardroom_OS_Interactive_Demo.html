@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#090e17" />
+  <title>Boardroom OS — Standalone Interactive Demo</title>
+  <style>
+:root{--bg:#0a111b;--pan:#111c2a;--border:#263545;--text:#eaf0f0;--muted:#8c9fae;--sub:#62798a;--gold:#d8b47c;--green:#66c7a4}*{box-sizing:border-box}html,body{min-height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:var(--bg)}button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.4}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #c9a56d;outline-offset:3px}.shell{min-height:100vh;display:grid;grid-template-columns:74px minmax(0,1fr)}.rail{background:#0d1622;border-right:1px solid #233140;display:flex;flex-direction:column;align-items:center;padding:24px 12px}.mark{font-size:30px;font-weight:900;letter-spacing:-2.5px;color:#eff2ee}.mark span{color:var(--gold)}.rail-group{display:grid;gap:18px;margin-top:70px}.rail-btn{height:44px;width:44px;border:0;border-radius:12px;background:transparent;color:#8a9dad;font-size:24px}.rail-btn.active,.rail-btn:hover{background:#243443;color:#e3c99d}.rail-bottom{margin-top:auto}.chair-badge{width:38px;height:38px;display:grid;place-items:center;border:1px solid #9c7e55;background:#493b30;color:#f1d19f;font-weight:700;border-radius:50%}.workspace{min-width:0}.topbar{height:92px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;border-bottom:1px solid #243342;background:#0b1520}.eyebrow,.section-kicker,.panel-title,.agenda-label{font-size:10px;letter-spacing:2.3px;font-weight:750;color:#bdc6cc}.eyebrow em{font-style:normal;color:var(--gold)}h1,h2,h3,p{margin:0}.topbar h1{font-size:23px;line-height:1.7;font-weight:720;letter-spacing:-.7px}.vtag{font-weight:500;color:#6c8492;font-size:11px;margin-left:6px}.top-actions{display:flex;gap:12px;align-items:center}.connection{font-size:11px;color:#98a8b5;display:flex;align-items:center;gap:8px;margin-right:7px}.connection i,.status-light,.tiny-green{width:7px;height:7px;background:#d5aa65;border-radius:50%;display:inline-block;box-shadow:0 0 12px #d5aa6599}.connection.connected i,.status-light,.tiny-green{background:#68d3af;box-shadow:0 0 9px #68d3af82}.btn{padding:11px 16px;border-radius:9px;border:1px solid #405063;background:#142232;color:#e0e9eb;font-size:12px;font-weight:700;white-space:nowrap}.btn:hover,.control-btn:hover{filter:brightness(1.15)}.btn-outline{background:transparent}.btn-accent{background:var(--gold);color:#18212b;border-color:var(--gold)}.content-grid{display:grid;grid-template-columns:minmax(0,1fr) 295px;min-height:calc(100vh - 92px)}.main-area{min-width:0;padding:26px 28px 24px 34px}.section-heading{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px}.section-heading h2{font-size:24px;font-weight:650;letter-spacing:-.55px;margin-top:7px}.session-tag{font-size:10px;font-weight:780;letter-spacing:1.1px;color:#c9ab79;background:#42352566;border:1px solid #765c3866;border-radius:24px;padding:9px 12px;white-space:nowrap}.scene-card{border:1px solid #43505a;border-radius:17px;background:#101b26;overflow:hidden;box-shadow:0 15px 48px #03081055}.scene-topline{height:43px;display:flex;justify-content:space-between;align-items:center;padding:0 17px;background:#14212e;border-bottom:1px solid #384552}.scene-metadata{font-size:10px;letter-spacing:1.4px;font-weight:800;color:#b8c6ca;display:flex;align-items:center;gap:9px}.live-dot{height:7px;width:7px;background:#8fc4b0;border-radius:50%;box-shadow:0 0 12px #86dec7}.scene-number{font-size:9px;letter-spacing:1px;color:#718996}.scene-frame{height:clamp(350px,42vw,520px);position:relative;background:#13222e;overflow:hidden}.board-svg{width:100%;height:100%;display:block}.scene-vignette{pointer-events:none;position:absolute;inset:0;background:radial-gradient(ellipse at 50% 44%,transparent 30%,#05111c64 100%)}.speech{position:absolute;left:22px;bottom:38px;width:min(430px,58%);border:1px solid #8091a173;background:#101c2bf0;backdrop-filter:blur(15px);border-radius:10px;padding:14px 17px;box-shadow:0 13px 34px #0005;transition:opacity .2s}.speech-top{font-size:10px;font-weight:800;letter-spacing:1.1px;display:flex;align-items:center;gap:8px;color:#e5d1b0}.speaker-dot{width:8px;height:8px;background:#d8b47c;border-radius:50%;display:inline-block}.speaking-pill{margin-left:auto;font-size:9px;color:#8ce1bb;display:none}.speech.active .speaking-pill{display:inline}.speech p{font-size:12px;line-height:1.7;color:#dce5e6;margin-top:7px;max-height:125px;overflow:auto}.view-label{position:absolute;top:19px;left:20px;color:#e7ebdf;text-shadow:0 1px 7px #000;letter-spacing:1.5px;font-size:10px;font-weight:800}.view-label span{color:#d8b47c;margin-right:5px}.seat-helper{position:absolute;top:20px;right:18px;font-size:10px;color:#ced9d9;text-shadow:0 1px 7px #000}.scene-controls{min-height:65px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:11px 14px}.control-set{display:flex;flex-wrap:wrap;gap:8px}.control-btn{border:1px solid #3b4b59;border-radius:8px;background:#1a2a38;color:#b8c7cd;padding:10px 12px;font-size:11px;font-weight:740}.control-btn.primary{color:#b0ebd6;border-color:#356c61;background:#18443a}.control-btn.gold{background:#ad8856;color:#08141e;border-color:#ad8856}.control-btn.quiet{background:transparent}.transcript-head{display:flex;justify-content:space-between;align-items:end;margin-top:24px;margin-bottom:12px}.transcript-head h3{font-size:19px;font-weight:670;letter-spacing:-.3px;margin-top:6px}.count{font-size:11px;background:#233646;color:#a8c0cd;border-radius:20px;padding:3px 7px;vertical-align:middle}.hint{font-size:11px;color:#748f9e}.transcript{max-height:210px;min-height:130px;overflow:auto;background:#0e1925;border:1px solid #253a49;border-radius:12px;padding:12px 14px;scrollbar-color:#3a5465 transparent}.empty-transcript{text-align:center;padding:25px 10px;color:#849aa9;font-size:12px;line-height:1.8}.msg{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid #263441}.msg:last-child{border-bottom:0}.msg-avatar{width:29px;height:29px;border:1px solid;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:800}.msg-top{display:flex;align-items:center;gap:10px}.msg-name{font-size:12px;font-weight:800}.msg-mode{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#90a6b3}.msg-time{margin-left:auto;color:#66808e;font-size:10px}.msg p{font-size:12px;line-height:1.65;color:#b4c2c9;margin-top:4px}.chair-compose{display:flex;align-items:center;gap:12px;background:#192734;border:1px solid #3d5160;border-radius:11px;margin-top:12px;padding:7px 8px 7px 13px}.chair-symbol{background:#564333;color:#e1c293;width:29px;height:29px;display:grid;place-items:center;border-radius:50%;font-size:13px;font-weight:800}.chair-compose input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:white;font-size:12px}.chair-compose input::placeholder{color:#8197a4}.chair-compose button{width:35px;height:35px;border-radius:8px;background:#d0aa77;border:0;color:#13202b;font-size:20px}.rightbar{border-left:1px solid #283645;background:#101b28;display:flex;flex-direction:column;padding:23px 18px 15px;min-width:0}.chair-panel{background:#172838;border:1px solid #374858;border-radius:12px;padding:16px}.panel-title{color:#96a7b2;letter-spacing:1.6px;display:flex;justify-content:space-between}.chairperson{display:flex;align-items:center;gap:11px;margin-top:16px}.chair-avatar{width:41px;height:41px;border-radius:11px;display:grid;place-items:center;background:#745b3e;color:#f5dfbf;font-weight:750;font-size:20px}.chairperson strong,.member-desc strong{display:block;font-size:12px}.chairperson small,.member-desc small{display:block;color:#8fa3b0;font-size:10px;margin-top:4px}.chairperson .status-light{margin-left:auto}.chair-panel p{font-size:11px;line-height:1.65;color:#99afba;margin-top:13px}.right-section{margin-top:23px}.board-count{font-weight:650;color:#d1ad79;letter-spacing:0}.member-list{margin-top:10px}.member{width:100%;border:1px solid transparent;background:transparent;display:flex;align-items:center;text-align:left;gap:10px;padding:8px;border-radius:9px;color:#e2e9e9;position:relative}.member:hover,.member.selected{background:#1b2b39;border-color:#344c5c}.member-icon{width:34px;height:34px;background:#28394a;border-radius:10px;display:grid;place-items:center;font-size:12px;font-weight:750;border:1px solid #415668}.member-desc{min-width:0;flex:1}.member-desc small{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.member-speaking{font-size:10px;color:#7cdfb5}.member.selected::after{content:'';position:absolute;right:0;top:25%;height:50%;width:3px;background:#c2a475;border-radius:3px}.agenda-card{background:#162633;border:1px solid #324858;border-radius:10px;margin-top:12px;padding:15px}.agenda-label{font-size:9px;color:#96b3b4;letter-spacing:1px}.agenda-card>strong{display:block;font-size:13px;line-height:1.5;margin-top:9px}.agenda-card>p{font-size:11px;color:#92a9b5;line-height:1.65;margin-top:8px}.divider-line{height:1px;background:#324757;margin:15px 0 10px}.agenda-meta{display:flex;justify-content:space-between;padding-top:9px;font-size:10px}.agenda-meta span{color:#8098a5}.agenda-meta strong{font-size:10px;font-weight:650;color:#b5c8cc}.right-footer{margin-top:auto;padding:25px 5px 0;font-size:10px;color:#7f96a1}.tiny-green{height:6px;width:6px;margin-right:5px}#toast{position:fixed;z-index:30;bottom:25px;right:25px;max-width:400px;display:none;background:#213645;border:1px solid #668293;padding:14px 18px;border-radius:10px;box-shadow:0 15px 30px #0008;color:#f4f0df;font-size:13px;line-height:1.5}dialog{border:1px solid #516174;border-radius:15px;background:#132230;color:#f2f6f6;box-shadow:0 25px 80px #000b;padding:0;width:min(510px,calc(100vw - 25px));max-height:90vh;overflow:auto}dialog::backdrop{background:#050b11b8;backdrop-filter:blur(5px)}.modal-inner{padding:28px;display:grid;gap:16px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head .section-kicker{color:#d0b083}.xbtn{background:transparent;border:0;font-size:26px;color:#b5c5ca}.modal-inner h2{font-size:25px;letter-spacing:-.6px}.modal-inner p{font-size:12px;color:#9eb1bc;line-height:1.6}.modal-inner label{display:grid;gap:7px;font-size:12px;color:#ccd7dc;font-weight:650}.modal-inner input,.modal-inner textarea{width:100%;background:#0b1723;border:1px solid #38505f;border-radius:9px;padding:11px 12px;font-size:12px;color:white;resize:vertical}.modal-inner .modal-hint{font-size:10px;color:#d4af78}.modal-inner .wide{width:100%;padding:14px}.history-list{display:grid;gap:8px}.history-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px;background:#1c2e3d;color:#e2e9e9;border:1px solid #3c5261;border-radius:9px;text-align:left}.history-row small{color:#8ea6b3;display:block;margin-top:5px}.history-row em{font-size:10px;color:#e3bc82;font-style:normal}.board-agent{cursor:pointer;transition:opacity .2s}.board-agent:hover .avatar-halo,.board-agent.selected .avatar-halo{opacity:1}.board-agent .avatar-halo{opacity:0;transition:opacity .18s}.board-agent.active .avatar-halo{opacity:1;animation:halo 1.3s ease-in-out infinite alternate}.name-tag{cursor:pointer}.name-tag.selected rect{stroke:#eac88c;stroke-width:2}.name-tag:hover rect{stroke:#a2b9c7;stroke-width:1.5}@keyframes halo{from{opacity:.42}to{opacity:1}}@media(max-width:1260px){.content-grid{grid-template-columns:minmax(0,1fr) 262px}.main-area{padding:20px}.topbar{padding:0 20px}.scene-frame{height:390px}.control-btn{padding:9px}}@media(max-width:1000px){.content-grid{grid-template-columns:1fr}.rightbar{display:none}.scene-frame{height:min(62vw,520px)}.scene-card{max-width:100%}.topbar .connection{display:none}}@media(max-width:620px){.shell{grid-template-columns:1fr}.rail{display:none}.topbar{height:auto;padding:15px;gap:10px}.topbar h1{font-size:19px}.top-actions{gap:5px}.top-actions .btn-outline{display:none}.top-actions .btn{font-size:10px;padding:9px}.main-area{padding:15px}.section-heading h2{font-size:17px}.section-heading{align-items:center}.session-tag{font-size:8px;padding:7px}.scene-topline{padding:0 9px}.scene-metadata{font-size:8px}.scene-number{display:none}.scene-frame{height:390px}.board-svg{width:145%;margin-left:-22%}.seat-helper{display:none}.speech{left:10px;bottom:20px;width:calc(100% - 20px);padding:9px 12px}.speech p{font-size:11px;max-height:69px}.speech-top{font-size:9px}.control-btn{font-size:10px}.scene-controls{gap:8px}.hint{display:none}.chair-compose input{font-size:11px}}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="rail" aria-label="Main navigation">
+    <div class="mark">B<span>.</span></div>
+    <div class="rail-group">
+      <button class="rail-btn active" data-tip="Boardroom" aria-label="Boardroom" id="rail-board">▦</button>
+      <button class="rail-btn" data-tip="Recent meetings" aria-label="Recent meetings" id="rail-history">◷</button>
+      <button class="rail-btn" data-tip="New meeting" aria-label="New meeting" id="rail-new">＋</button>
+    </div>
+    <div class="rail-bottom"><div class="chair-badge" title="Chairperson">C</div></div>
+  </nav>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="brand"><span class="eyebrow">BOARDROOM <em>OS</em> &nbsp; / &nbsp; PRIVATE EXECUTIVE SUITE</span><h1>The Decision Chamber <span class="vtag">v0.1</span></h1></div>
+      <div class="top-actions"><span class="connection" id="connection"><i></i> Checking AI connection</span><button class="btn btn-outline" id="history-top">Past meetings</button><button class="btn btn-accent" id="new-meeting">＋ &nbsp;New meeting</button></div>
+    </header>
+    <section class="content-grid">
+      <main class="main-area">
+        <div class="section-heading"><div><span class="section-kicker">EXECUTIVE SESSION</span><h2 id="meeting-title">Your seat is ready, Chairperson.</h2></div><span class="session-tag" id="session-tag">● &nbsp;DEMO SESSION</span></div>
+        <div class="scene-card">
+          <div class="scene-topline"><div class="scene-metadata"><span class="live-dot"></span><span id="meeting-mode">IMMERSIVE BOARDROOM · FIRST-PERSON VIEW</span></div><span class="scene-number" id="round-number">SESSION 01 / BOARDROOM POV</span></div>
+          <div class="scene-frame">
+            <svg class="board-svg" id="board-svg" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" role="img" aria-label="First-person perspective from the chairperson's seat looking along a conference table at AI advisors">
+              <defs>
+                <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#182a3a"/><stop offset="1" stop-color="#10202b"/></linearGradient>
+                <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1e2930"/><stop offset="1" stop-color="#0a131e"/></linearGradient>
+                <linearGradient id="glass" x1="0" x2="0.7" y1="0" y2="1"><stop stop-color="#254d63"/><stop offset="1" stop-color="#101f2d"/></linearGradient>
+                <linearGradient id="tableWood" x1="0" x2="0.8" y1="0" y2="1"><stop stop-color="#584636"/><stop offset="0.5" stop-color="#2e2726"/><stop offset="1" stop-color="#111c26"/></linearGradient>
+                <linearGradient id="leather" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#283b43"/><stop offset="1" stop-color="#0d1b25"/></linearGradient>
+                <linearGradient id="screen" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#173d49"/><stop offset="1" stop-color="#0b1c2b"/></linearGradient>
+                <radialGradient id="lampGlow"><stop stop-color="#ebd7a9" stop-opacity="0.16"/><stop offset="1" stop-color="#e6d4aa" stop-opacity="0"/></radialGradient>
+                <filter id="softshadow"><feGaussianBlur stdDeviation="17"/></filter>
+                <filter id="activeglow"><feGaussianBlur stdDeviation="6"/></filter>
+              </defs>
+              <rect width="1200" height="760" fill="#0d1b27"/>
+              <rect width="1200" height="455" fill="url(#wall)"/>
+              <path d="M0 0 L85 0 210 455 0 570Z" fill="#11202b"/><path d="M1200 0 L1115 0 990 455 1200 570Z" fill="#11202b"/>
+              <path d="M0 455 H1200 V760 H0Z" fill="url(#floor)"/>
+              <path d="M0 740 L526 440 M1200 740 L674 440 M0 595 L525 440 M1200 595 L675 440" stroke="#47616d" opacity=".14" stroke-width="2"/>
+              <path d="M40 0 V470 M1160 0 V470 M0 451 H1200" stroke="#9b8b6e" opacity=".15" stroke-width="5"/>
+              <path d="M52 130 L337 130 L360 399 L32 399Z" fill="#0c1621" stroke="#596976" stroke-width="6"/>
+              <path d="M62 137 L332 137 L353 392 L39 392Z" fill="url(#glass)"/>
+              <path d="M863 130 L1148 130 L1168 399 L841 399Z" fill="#0c1621" stroke="#596976" stroke-width="6"/>
+              <path d="M869 137 L1139 137 L1161 392 L848 392Z" fill="url(#glass)"/>
+              <g fill="#101f2a" opacity=".95"><path d="M44 325 H93 V270 H126 V312 H160 V236 H188 V287 H221 V259 H269 V325 H345 V392 H44Z"/><path d="M854 332 H893 V278 H932 V308 H963 V239 H1006 V305 H1040 V270 H1094 V327 H1160 V392 H854Z"/></g>
+              <g opacity=".22" stroke="#bcd6df"><path d="M191 138 L191 392 M69 265 L350 265 M1001 138 V392 M866 267 H1151" stroke-width="4"/></g>
+              <path d="M400 70 H800 V340 H400Z" fill="#14242f" opacity=".6"/>
+              <rect x="426" y="97" width="348" height="211" rx="10" fill="#09151f" stroke="#557383" stroke-width="3"/>
+              <rect x="438" y="109" width="324" height="187" rx="5" fill="url(#screen)"/>
+              <text x="460" y="142" fill="#b7baa5" letter-spacing="3" font-size="14" font-weight="700">TODAY'S AGENDA</text>
+              <path d="M460 158 H737" stroke="#7d9c9a" opacity=".5"/>
+              <text x="460" y="196" fill="#e3e9e5" font-size="22" font-weight="700" id="svg-title">Strategic career decision</text>
+              <text x="460" y="226" fill="#9eb7b9" font-size="14" id="svg-subtitle">Expert perspectives · Debate · Decision</text>
+              <rect x="460" y="253" width="108" height="22" rx="11" fill="#25504d"/><text x="514" y="268" text-anchor="middle" fill="#a2ead2" font-size="10" font-weight="700" letter-spacing="1">CHAIR-LED</text>
+              <ellipse cx="600" cy="84" rx="318" ry="103" fill="url(#lampGlow)"/>
+              <path d="M427 0 L453 66 H747 L773 0" fill="#1b2226" stroke="#998463" stroke-width="3"/>
+              <path d="M455 66 H745 L710 78 H490Z" fill="#c6ad81" opacity=".65"/>
+              <g id="agent-layer"></g>
+              <!-- table surface intentionally hides part of each seated avatar -->
+              <path d="M526 379 L674 379 L1124 800 L77 800 Z" fill="#02090e" opacity=".65" transform="translate(0,25)" filter="url(#softshadow)"/>
+              <path d="M530 378 L670 378 L1130 790 L71 790Z" fill="url(#tableWood)" stroke="#b2976b" stroke-width="5"/>
+              <path d="M538 394 L661 394 L1079 755 L123 755Z" fill="none" stroke="#8c7050" opacity=".4" stroke-width="3"/>
+              <path d="M598 417 L609 417 L651 700 L552 700Z" fill="#121e27" stroke="#6d5948" stroke-width="2" opacity=".8"/>
+              <path d="M595 428 L610 428 L642 671 L560 671Z" fill="#0a131c"/>
+              <g opacity=".9" fill="#c9b48d"><ellipse cx="390" cy="520" rx="12" ry="4"/><ellipse cx="810" cy="520" rx="12" ry="4"/><ellipse cx="275" cy="631" rx="17" ry="6"/><ellipse cx="924" cy="631" rx="17" ry="6"/></g>
+              <g opacity=".85"><path d="M470 576 L508 580 L495 604 L458 599Z" fill="#0e1a23" stroke="#59747b" stroke-width="2"/><path d="M692 579 L731 574 L741 598 L703 603Z" fill="#0e1a23" stroke="#59747b" stroke-width="2"/></g>
+              <path d="M0 744 Q600 686 1200 744 V760 H0Z" fill="#10141d" opacity=".9"/>
+              <g id="name-layer"></g>
+            </svg>
+            <div class="scene-vignette"></div>
+            <div class="speech" id="speech"><div class="speech-top"><span class="speaker-dot" id="speaker-dot"></span><span id="speaker-label">CHIEF OF STAFF</span><span class="speaking-pill">● SPEAKING</span></div><p id="speech-text">Welcome, Chairperson. Your advisors are ready. Open a discussion or select any member to address them directly.</p></div>
+            <div class="view-label"><span>◉</span> CHAIRPERSON'S VIEW</div>
+            <div class="seat-helper">Click a board member to select them</div>
+          </div>
+          <div class="scene-controls"><div class="control-set"><button class="control-btn primary" id="opening-btn">▶ &nbsp;Open discussion</button><button class="control-btn" id="debate-btn">⇄ &nbsp;Debate round</button><button class="control-btn" id="summary-btn">≡ &nbsp;Board summary</button></div><div class="control-set"><button class="control-btn quiet" id="minutes-btn">↓ &nbsp;Minutes</button><button class="control-btn gold" id="decision-btn">◇ &nbsp;Record decision</button></div></div>
+        </div>
+        <div class="transcript-head"><div><span class="section-kicker">BOARD CONVERSATION</span><h3>Meeting transcript <span class="count" id="message-count">0</span></h3></div><span class="hint">Independent opinions • Constructive debate</span></div>
+        <div class="transcript" id="transcript" aria-live="polite"></div>
+        <form class="chair-compose" id="question-form"><span class="chair-symbol">C</span><input id="question-input" placeholder="Chairperson: Ask the selected advisor or challenge an argument…" autocomplete="off" aria-label="Question for selected AI advisor"/><button type="submit" id="send-question" title="Send question">➜</button></form>
+      </main>
+      <aside class="rightbar">
+        <div class="chair-panel"><div class="panel-title">YOUR OFFICE</div><div class="chairperson"><div class="chair-avatar">C</div><div><strong>The Chairperson</strong><small>Final decision authority</small></div><span class="status-light"></span></div><p>Lead the room. Challenge assumptions. Own the final call.</p></div>
+        <div class="right-section"><div class="panel-title">BOARD MEMBERS <span class="board-count">07</span></div><div class="member-list" id="member-list"></div></div>
+        <div class="right-section agenda-section"><div class="panel-title">MEETING BRIEF</div><div class="agenda-card"><div class="agenda-label">CURRENT AGENDA</div><strong id="agenda-title">Career growth vs financial security</strong><p id="agenda-context">The board will compare long-term opportunity, near-term reward, and downside risks.</p><div class="divider-line"></div><div class="agenda-meta"><span>Phase</span><strong id="phase-label">Opening brief</strong></div><div class="agenda-meta"><span>Decision status</span><strong id="decision-status">Awaiting chair</strong></div></div></div>
+        <div class="right-footer"><span class="tiny-green"></span> Human in control at every step</div>
+      </aside>
+    </section>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="meeting-dialog"><form method="dialog" class="modal-inner" id="meeting-form"><div class="modal-head"><span class="section-kicker">CONVENE THE BOARD</span><button type="button" class="xbtn" data-close="meeting-dialog" aria-label="Close">×</button></div><h2>Open a new meeting</h2><p>Give the board a decision to work through. Only relevant advisors will speak.</p><label>Meeting title<input name="title" maxlength="120" minlength="3" placeholder="e.g. Evaluate two job offers" required/></label><label>Decision question<textarea name="agenda" rows="3" maxlength="3000" minlength="5" placeholder="What exactly must be decided?" required></textarea></label><label>Known facts, constraints and preferences<textarea name="context" rows="4" maxlength="12000" placeholder="Share numbers, deadlines, priorities and missing information…"></textarea></label><p class="modal-hint">Live expert responses need an API key configured on your backend. Your key never goes in this form.</p><button class="btn btn-accent wide" type="submit" value="create">Create live meeting →</button></form></dialog>
+<dialog id="decision-dialog"><form method="dialog" class="modal-inner" id="decision-form"><div class="modal-head"><span class="section-kicker">FINAL AUTHORITY</span><button type="button" class="xbtn" data-close="decision-dialog" aria-label="Close">×</button></div><h2>Chairperson's resolution</h2><p>Only you can close the meeting. The board cannot decide on your behalf.</p><label>My final decision<textarea name="decision" rows="3" maxlength="4000" minlength="3" placeholder="I have decided to…" required></textarea></label><label>Rationale (optional)<textarea name="rationale" rows="3" maxlength="4000" placeholder="Why you chose this path…"></textarea></label><button class="btn btn-accent wide" type="submit" value="decide">Approve and close meeting →</button></form></dialog>
+<dialog id="history-dialog"><div class="modal-inner"><div class="modal-head"><span class="section-kicker">DECISION ARCHIVE</span><button type="button" class="xbtn" data-close="history-dialog" aria-label="Close">×</button></div><h2>Past board meetings</h2><p>Revisit your prior discussions and decisions.</p><div id="history-list" class="history-list"></div></div></dialog>
+<script>
+(() => {
+  'use strict';
+  const roster = [
+    {id:'chief',name:'Alex Morgan',role:'Chief of Staff',color:'#c4a675',initials:'AM',seat:{x:600,y:312,s:.69},skin:'#bd9376',hair:'#4b4140',coat:'#59676c'},
+    {id:'strategy',name:'Victoria Chen',role:'Strategy Director',color:'#7db7de',initials:'VC',seat:{x:390,y:375,s:.72},skin:'#cb9a80',hair:'#202930',coat:'#556f83'},
+    {id:'finance',name:'Daniel Reed',role:'Finance Director',color:'#80c8a9',initials:'DR',seat:{x:298,y:490,s:.85},skin:'#b98a68',hair:'#3c3536',coat:'#414d53'},
+    {id:'operations',name:'Elena Brooks',role:'Operations Director',color:'#ae9ce4',initials:'EB',seat:{x:177,y:655,s:1.03},skin:'#e1b59c',hair:'#30292b',coat:'#5b5165'},
+    {id:'risk',name:'Amara Okafor',role:'Chief Risk Officer',color:'#e0ab86',initials:'AO',seat:{x:812,y:375,s:.72},skin:'#8a5945',hair:'#201c24',coat:'#694e50'},
+    {id:'technology',name:'Noah Patel',role:'Technology Director',color:'#89c7cf',initials:'NP',seat:{x:898,y:490,s:.85},skin:'#c38c6e',hair:'#212a32',coat:'#36545b'},
+    {id:'devil',name:'Marcus Vale',role:"Devil's Advocate",color:'#ef929b',initials:'MV',seat:{x:1028,y:655,s:1.03},skin:'#d3a27d',hair:'#302a28',coat:'#684d52'},
+  ];
+  const lookup = Object.fromEntries(roster.map(a=>[a.id,a]));
+  const $ = id=>document.getElementById(id);
+  const demoMeeting = {id:'demo',title:'Career growth vs financial security',agenda:'Should I prioritize a better-paying role or a higher-growth opportunity?',context:'One option offers more security and near-term compensation. The other could create stronger long-term career upside, with more uncertainty.',participants:['strategy','finance','risk','devil'],messages:[],status:'open',decision:null};
+  let meeting = JSON.parse(JSON.stringify(demoMeeting));
+  let isDemo = true;
+  let selected = 'strategy';
+  let active = null;
+  let busy = false;
+  let demoRound = 0;
+  let aiAvailable = false;
+  let toastTimer;
+  const demoOpening = [
+    ['strategy', 'My initial view: prioritize the option that compounds your capabilities and expands future choices. Compare role scope, quality of mentors and ownership over three to five years—not only the first-year salary. I would favor the growth role if its path is credible.'],
+    ['finance', 'I would not decide without real numbers. Compare guaranteed take-home pay, signing and relocation costs, debt obligations and a realistic three-year earnings range. A higher salary now can fund optionality; a promised future payoff must be treated as uncertain.'],
+    ['risk', 'Both choices carry risk, just in different forms. The secure offer risks slower skill growth; the high-growth offer risks instability and unmet expectations. Identify a worst-case scenario for each, your financial runway and how easily you could switch paths.'],
+    ['devil', 'The board is assuming these labels—“secure” and “high growth”—are accurate. What independent evidence supports them? Challenge the job descriptions, speak with former employees and test whether the claimed upside is actually attainable.']
+  ];
+  const demoDebate = [
+    ['strategy', 'Finance is right to demand numbers, but a simple salary comparison undervalues future opportunity. I would build a scenario matrix with skills, network and promotion probability as explicit—but uncertain—inputs.'],
+    ['finance', 'Strategy is overweighting upside without proving it. If the growth role has lower guaranteed compensation, the Chairperson should demand a quantified downside and a date by which promised advancement can be validated.'],
+    ['devil', 'Both sides are assuming a decision must be final. What about negotiating compensation, asking for a different role scope or setting a six-month review? Reversible experiments may dominate an all-or-nothing choice.']
+  ];
+  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function line(s,n=32){return s.length>n?s.slice(0,n-1)+'…':s;}
+  function hexOpacity(hex){return hex+'55';}
+  function makePerson(a){
+    const {x,y,s}=a.seat;
+    const female = ['strategy','operations','risk'].includes(a.id);
+    const hair=female ? `<path d="M-28 -76 Q-31 -116 0 -120 Q32 -113 29 -71 L32 -15 L19 -22 L14 -82Z" fill="${a.hair}"/><path d="M-27 -82 Q-36 -63 -28 -16 L-15 -24 L-14 -68Z" fill="${a.hair}"/>` : `<path d="M-28 -77 Q-34 -110 -6 -111 Q24 -117 30 -91 L26 -80 Q7 -94 -17 -81Z" fill="${a.hair}"/>`;
+    return `<g class="board-agent" id="person-${a.id}" role="button" tabindex="0" aria-label="Select ${esc(a.name)}, ${esc(a.role)}" data-agent="${a.id}" transform="translate(${x} ${y}) scale(${s})">
+        <ellipse class="avatar-halo" cx="0" cy="-45" rx="53" ry="89" fill="${hexOpacity(a.color)}" filter="url(#activeglow)"/>
+        <rect x="-50" y="-56" width="100" height="132" rx="31" fill="#101c27" stroke="#445663" stroke-width="5"/>
+        <path d="M-53 38 Q-45 2 -22 2 L-10 11 L12 11 L26 1 Q55 5 58 41 L61 100 L-60 100Z" fill="${a.coat}" stroke="#13242d" stroke-width="3"/>
+        <path d="M-20 4 L0 55 L-35 15Z M23 4 L0 55 L37 14Z" fill="#a3afb2" opacity=".33"/>
+        <path d="M-13 2 L0 36 L13 2" fill="#f0e6dd"/><path d="M-5 17 L5 17 L9 54 L0 65 L-8 54Z" fill="${a.color}" opacity=".9"/>
+        <rect x="-10" y="-16" width="20" height="32" rx="7" fill="${a.skin}"/>
+        <ellipse cx="0" cy="-58" rx="27" ry="35" fill="${a.skin}"/>
+        ${hair}
+        <path d="M-14 -58 Q-10 -62 -5 -58 M5 -58 Q10 -62 15 -58" stroke="#302c29" opacity=".7" stroke-width="2" fill="none"/><path d="M-7 -40 Q0 -36 7 -40" fill="none" stroke="#6a4640" opacity=".6" stroke-width="2"/>
+      </g>`;
+  }
+  function makeTag(a){
+    let tx=a.seat.x, ty=a.seat.y-112*a.seat.s;
+    if(a.id==='chief')ty=230;
+    let w = a.id==='chief'?118: a.id==='operations'?125: a.id==='technology'?120: a.id==='devil'?129:112;
+    return `<g class="name-tag" id="tag-${a.id}" data-agent="${a.id}" role="button" tabindex="0" aria-label="Select ${esc(a.role)}"><rect x="${tx-w/2}" y="${ty-17}" width="${w}" height="36" rx="8" fill="#0b1924" stroke="#657682" opacity=".98"/><rect x="${tx-w/2+5}" y="${ty-10}" width="4" height="21" rx="2" fill="${a.color}"/><text x="${tx+3}" y="${ty-2}" text-anchor="middle" fill="#e7eff0" font-size="12" font-weight="700">${esc(a.name)}</text><text x="${tx+3}" y="${ty+12}" text-anchor="middle" fill="#a0b5be" font-size="9">${esc(a.role)}</text></g>`;
+  }
+  function buildRoom(){
+    $('agent-layer').innerHTML=roster.map(makePerson).join('');
+    $('name-layer').innerHTML=roster.map(makeTag).join('');
+    for(const a of roster){
+      for(const id of ['person-'+a.id,'tag-'+a.id]){
+        $(id).addEventListener('click',()=>select(a.id));
+        $(id).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(a.id);}});
+      }
+    }
+  }
+  function buildMembers(){
+    $('member-list').innerHTML=roster.map(a=>`<button class="member" id="member-${a.id}" data-agent="${a.id}"><span class="member-icon" style="color:${a.color};border-color:${a.color}55">${a.initials}</span><span class="member-desc"><strong>${esc(a.name)}</strong><small>${esc(a.role)}</small></span><span class="member-speaking" id="status-${a.id}"></span></button>`).join('');
+    document.querySelectorAll('.member').forEach(b=>b.addEventListener('click',()=>select(b.dataset.agent)));
+  }
+  function select(agentId){
+    if(!lookup[agentId])return;
+    selected=agentId;
+    for(const a of roster){
+      $('person-'+a.id).classList.toggle('selected',a.id===selected);
+      $('tag-'+a.id).classList.toggle('selected',a.id===selected);
+      $('member-'+a.id).classList.toggle('selected',a.id===selected);
+    }
+    if(!busy){
+      const a=lookup[agentId];
+      const recent=[...meeting.messages].reverse().find(m=>m.speaker_id===agentId);
+      showSpeech(agentId,recent?.content || `${a.name}, ${a.role}. ${a.id==='chief'?'I will help organize your meeting.':'Click Ask or type a question to hear this advisor’s perspective.'}`,false);
+    }
+    $('question-input').placeholder=`Chairperson: Ask ${lookup[selected].name} a question…`;
+  }
+  function showSpeech(agentId,text,speaking=false){
+    if(active && lookup[active])$('person-'+active).classList.remove('active');
+    active=agentId;
+    const agent=lookup[agentId];
+    if(agent)$('person-'+agentId).classList.toggle('active',speaking);
+    $('speaker-label').textContent=agent?`${agent.name.toUpperCase()} · ${agent.role.toUpperCase()}`:'THE CHAIRPERSON';
+    $('speaker-dot').style.background=agent?.color||'#c8ae88';
+    $('speech-text').textContent=text;
+    $('speech').classList.toggle('active',speaking);
+    roster.forEach(a=>{$('status-'+a.id).textContent=speaking&&agentId===a.id?'◖◗':'';});
+  }
+  function appendMessage(m){
+    const agent=lookup[m.speaker_id];
+    const avatar=agent?.initials||'C';
+    const color=agent?.color||'#e0bc86';
+    const e=document.createElement('div');e.className='msg';
+    e.innerHTML=`<div class="msg-avatar" style="color:${color};border-color:${color}77;background:${color}17">${avatar}</div><div><div class="msg-top"><span class="msg-name">${esc(agent?.name||'Chairperson')}</span><span class="msg-mode">${esc(m.mode||'note')}</span><span class="msg-time">${new Date(m.created_at||Date.now()).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span></div><p></p></div>`;
+    e.querySelector('p').textContent=m.content;
+    $('transcript').appendChild(e);
+    $('transcript').scrollTop=$('transcript').scrollHeight;
+    $('message-count').textContent=meeting.messages.length;
+  }
+  function refreshTranscript(){
+    $('transcript').innerHTML='';
+    if(!meeting.messages.length){$('transcript').innerHTML='<div class="empty-transcript">The room is assembled. Open a discussion to hear independent specialist perspectives.<br/>Select any advisor to inspect their seat.</div>';}
+    else meeting.messages.forEach(appendMessage);
+    $('message-count').textContent=meeting.messages.length;
+  }
+  function phase(){
+    let count=meeting.messages.filter(m=>m.mode==='debate').length;
+    return meeting.status==='closed'?'Closed · Approved':meeting.messages.some(m=>m.mode==='summary')?'Board recommendation':count?'Cross-examination':meeting.messages.length?'Initial assessments':'Opening brief';
+  }
+  function refresh(){
+    $('meeting-title').textContent=meeting.title;
+    $('agenda-title').textContent=meeting.agenda;
+    $('agenda-context').textContent=meeting.context||'No additional meeting context yet.';
+    $('phase-label').textContent=phase();
+    $('decision-status').textContent=meeting.status==='closed'?'Chair approved':'Awaiting chair';
+    $('svg-title').textContent=line(meeting.title,28);
+    $('svg-subtitle').textContent='Independent views · Debate · Chair decision';
+    $('session-tag').textContent=isDemo?'●  SCRIPTED DEMO':'●  LIVE MEETING';
+    $('meeting-mode').textContent=isDemo?'DEMONSTRATION — PREWRITTEN RESPONSES':'LIVE AI BOARDROOM · FIRST-PERSON VIEW';
+    $('round-number').textContent=isDemo?'DEMO SESSION / CHAIR POV':'MEETING '+meeting.id.slice(0,8).toUpperCase();
+    $('opening-btn').disabled=busy||meeting.status==='closed'||meeting.messages.length>0;
+    $('debate-btn').disabled=busy||meeting.status==='closed'||!meeting.messages.length;
+    $('summary-btn').disabled=busy||meeting.status==='closed'||!meeting.messages.length;
+    $('decision-btn').disabled=busy||meeting.status==='closed';
+    $('question-input').disabled=busy||meeting.status==='closed';
+    $('send-question').disabled=busy||meeting.status==='closed';
+    $('minutes-btn').disabled=isDemo;
+    refreshTranscript();select(selected);
+  }
+  function notify(message){
+    clearTimeout(toastTimer);$('toast').textContent=message;$('toast').style.display='block';toastTimer=setTimeout(()=>{$('toast').style.display='none';},5500);
+  }
+  function lock(flag){busy=flag;refresh();}
+  async function api(path,method='GET',body){
+    const response=await fetch(path,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined});
+    if(!response.ok){let err;try{err=await response.json();}catch{}throw new Error(err?.detail||`Request failed (${response.status})`);}
+    return await response.json();
+  }
+  async function showBatch(newMeeting,oldCount){
+    const unseen=newMeeting.messages.slice(oldCount);
+    meeting=newMeeting;
+    $('transcript').innerHTML='';
+    meeting.messages.slice(0,oldCount).forEach(appendMessage);
+    for(const msg of unseen){
+      appendMessage(msg);
+      showSpeech(msg.speaker_id,msg.content,true);
+      await new Promise(resolve=>setTimeout(resolve,1000));
+    }
+    if(active&&lookup[active]){$('person-'+active).classList.remove('active');$('speech').classList.remove('active');}
+  }
+  async function scriptedBatch(items,mode){
+    $('transcript').innerHTML='';
+    meeting.messages.forEach(appendMessage);
+    for(const [speaker,content] of items){
+      const m={speaker_id:speaker,speaker_name:lookup[speaker].name,content,mode,created_at:new Date().toISOString()};
+      meeting.messages.push(m);
+      appendMessage(m);
+      showSpeech(speaker,content,true);
+      await new Promise(resolve=>setTimeout(resolve,800));
+    }
+    if(active&&lookup[active]){$('person-'+active).classList.remove('active');$('speech').classList.remove('active');}
+  }
+  async function doRound(which){
+    if(busy)return;
+    if(meeting.status!=='open')return notify('This meeting is closed. Start a new one.');
+    lock(true);
+    try{
+      if(isDemo){
+        if(which==='opening'&&demoRound===0){demoRound=1;await scriptedBatch(demoOpening,'opening');}
+        else if(which==='debate'){demoRound++;await scriptedBatch(demoDebate,'debate');}
+        else if(which==='summary'){
+          await scriptedBatch([['chief','The demonstration board sees two viable paths. Finance favors protecting near-term flexibility; Strategy favors verified long-term capability growth; Risk requires downside protection. The strongest next step is to compare real offer terms, clarify uncertainty, and only then make a decision. Chairperson, the decision is yours.']],'summary');
+        }
+        else notify('Opening round already completed. Try debate.');
+      }else{
+        const oldCount=meeting.messages.length;
+        const next=await api(`/api/meetings/${meeting.id}/${which}`,'POST');
+        await showBatch(next,oldCount);
+      }
+    }catch(e){notify(e.message);}finally{lock(false);}
+  }
+  async function ask(e){
+    e.preventDefault();if(busy)return;
+    const question=$('question-input').value.trim();if(!question)return;
+    if(isDemo)return notify('This is a scripted visual demo, not a live AI conversation. Configure OPENAI_API_KEY and create a live meeting to ask your own questions.');
+    lock(true);
+    try{
+      const oldCount=meeting.messages.length;
+      const next=await api(`/api/meetings/${meeting.id}/ask`,'POST',{agent_id:selected,question});
+      $('question-input').value='';
+      await showBatch(next,oldCount);
+    }catch(e){notify(e.message);}finally{lock(false);}
+  }
+  async function onNewMeeting(e){
+    e.preventDefault();
+    const form=$('meeting-form');const data=Object.fromEntries(new FormData(form));
+    try{
+      const newMeeting=await api('/api/meetings','POST',data);
+      meeting=newMeeting;isDemo=false;demoRound=0;selected='chief';
+      $('meeting-dialog').close();form.reset();refresh();
+      showSpeech('chief','Your board is assembled. Start the opening round to hear independent expert analysis.',false);
+      if(!aiAvailable)notify('Your meeting was created, but the API key is not configured. Add OPENAI_API_KEY on the server for live AI discussions.');
+      else notify('Meeting created. Open the discussion to hear from your board.');
+    }catch(error){notify(error.message);}
+  }
+  async function onDecision(e){
+    e.preventDefault(); const data=Object.fromEntries(new FormData($('decision-form')));
+    if(isDemo){meeting.decision=data.decision;meeting.status='closed';$('decision-dialog').close();refresh();return notify('Demo resolution recorded only in this browser session. Start a live meeting to persist a decision.');}
+    try{meeting=await api(`/api/meetings/${meeting.id}/decision`,'POST',data);$('decision-dialog').close();refresh();notify('Chairperson’s decision approved and saved.');}
+    catch(err){notify(err.message);}
+  }
+  async function openHistory(){
+    try{
+      const meetings=await api('/api/meetings');
+      $('history-list').innerHTML=meetings.length?meetings.map(m=>`<button class="history-row" data-id="${esc(m.id)}"><div><strong>${esc(m.title)}</strong><small>${new Date(m.created_at).toLocaleDateString()} · ${esc(line(m.agenda,55))}</small></div><em>${m.status==='closed'?'DECIDED':'OPEN'}</em></button>`).join(''):'<p>No saved meetings yet. Start your first live meeting.</p>';
+      $('history-list').querySelectorAll('button').forEach(b=>b.addEventListener('click',async()=>{try{meeting=await api('/api/meetings/'+encodeURIComponent(b.dataset.id));isDemo=false;selected='chief';$('history-dialog').close();refresh();notify('Previous meeting loaded.');}catch(e){notify(e.message);}}));
+      $('history-dialog').showModal();
+    }catch(e){notify(e.message);}
+  }
+  async function checkHealth(){
+    try{const h=await api('/api/health');aiAvailable=!!h.live_ai;
+      $('connection').classList.toggle('connected',aiAvailable);
+      $('connection').innerHTML=`<i></i> ${aiAvailable?'AI READY · '+esc(h.model):'DEMO MODE · API KEY NEEDED'}`;
+    }catch{$('connection').innerHTML='<i></i> Offline preview';}
+  }
+  $('opening-btn').addEventListener('click',()=>doRound('opening'));
+  $('debate-btn').addEventListener('click',()=>doRound('debate'));
+  $('summary-btn').addEventListener('click',()=>doRound('summary'));
+  $('question-form').addEventListener('submit',ask);
+  $('meeting-form').addEventListener('submit',onNewMeeting);
+  $('decision-form').addEventListener('submit',onDecision);
+  $('new-meeting').addEventListener('click',()=>$('meeting-dialog').showModal());
+  $('rail-new').addEventListener('click',()=>$('meeting-dialog').showModal());
+  $('decision-btn').addEventListener('click',()=>$('decision-dialog').showModal());
+  $('history-top').addEventListener('click',openHistory);
+  $('rail-history').addEventListener('click',openHistory);
+  $('minutes-btn').addEventListener('click',()=>{
+    if(isDemo)return notify('Demo has no downloadable minutes.');
+    window.location.href=`/api/meetings/${meeting.id}/export`;
+  });
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',() => $(b.dataset.close).close()));
+  for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+  buildRoom();buildMembers();refresh();showSpeech('chief','Welcome, Chairperson. This is a scripted visual demonstration. Run the opening discussion to see advisors speak, or create a live AI meeting.',false);checkHealth();
+})();
+
+</script>
+</body></html>
